@@ -19,3 +19,14 @@ test("Server responds with a form to add a list on /lists", async ({ page }) => 
   //Check the text of the submit button
   await expect(page.locator('input[type="submit"]')).toHaveText("Create list!");
 });
+
+test("Adding a list on the /lists page", async ({ page }) => {
+  await page.goto("/");
+  const listName = `My list: ${Math.random()}`;
+  await page.locator("input[type=text]").type(listName);
+  await page.locator("input[type=submit]").click();
+
+  //Check the existence of the new entry
+  const entryExists = await page.waitForSelector(`li >> text='${listName}'`);
+  expect(entryExists).toBeTruthy();
+});

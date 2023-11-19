@@ -8,4 +8,8 @@ const findItemsByListId = async (id) => {
   return await executeQuery(`SELECT * FROM shopping_list_items WHERE shopping_list_id = ${ id }`);
 };
 
-export { findItemsByListId };
+const addItemToList = async (list_id, item_name) => {
+    return await executeQuery(`INSERT INTO shopping_list_items (name, shopping_list_id) VALUES ('${ item_name }', ${ list_id })`);
+};
+
+export { findItemsByListId , addItemToList };

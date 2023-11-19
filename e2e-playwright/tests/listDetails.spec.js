@@ -29,12 +29,12 @@ test("Server responds with a form to add items on /lists/{id}", async ({ page })
 test("Adding an item on a list", async ({ page }) => {
     //Create a list and visit his page
     await page.goto("/");
-    const listName2 = `My list: ${Math.random()}`;
-    await page.locator("input[type=text]").type(listName2);
+    const listName = `My list: ${Math.random()}`;
+    await page.locator("input[type=text]").type(listName);
     await page.locator("input[type=submit]").click();
   
     //Click on the new entry
-    await page.locator(`a >> text='${listName2}'`).click();
+    await page.locator(`a >> text='${listName}'`).click();
 
     //Add an item to the list
     const itemName = `My item: ${Math.random()}`;
@@ -45,3 +45,29 @@ test("Adding an item on a list", async ({ page }) => {
     const entryExists = await page.waitForSelector(`li >> text='${itemName}'`);
     expect(entryExists).toBeTruthy();
   });
+
+
+test("Marked an item as collected", async ({ page }) => {
+    //Create a list and visit his page
+    await page.goto("/");
+    const listName = `My list: ${Math.random()}`;
+    await page.locator("input[type=text]").type(listName);
+    await page.locator("input[type=submit]").click();
+  
+    //Click on the new entry
+    await page.locator(`a >> text='${listName}'`).click();
+
+    //Add an item to the list
+    const nb = Math.floor(Math.random()*10000);
+    const itemName = `Item_${nb}`;
+    await page.locator("input[type=text]").type(itemName);
+    await page.locator("input[type=submit]").click();
+
+    //Check the existence of the marked collected button on the right item div
+    const buttonExists = await page.$(`div.${itemName} input[type="submit"][value="Mark collected!"]`);
+    expect(buttonExists).toBeTruthy();
+
+    await buttonExists.click();
+    await expect(page.locator(`div.${itemName} >> del`)).toHaveText(`${itemName}`);
+
+});

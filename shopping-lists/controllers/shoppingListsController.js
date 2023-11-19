@@ -1,5 +1,6 @@
 import { renderFile } from "../deps.js";
 import * as shopListServ from "../services/shoppingListsService.js";
+import * as shopItemServ from "../services/shoppingItemService.js"
 import { redirectTo } from "../utils/requestUtils.js";
 
 const responseDetails = {
@@ -15,7 +16,7 @@ const addList = async (request) => {
   return redirectTo("/lists");
 };
 
-const viewLists = async (request) => {
+const viewActiveLists = async (request) => {
   const data = {
     lists: await shopListServ.findAllActiveLists(),
   };
@@ -23,4 +24,18 @@ const viewLists = async (request) => {
   return new Response(await renderFile("../views/shopping_lists.eta", data), responseDetails);
 };
 
-export { addList, viewLists };
+const viewList = async (request) => {
+    const url = new URL(request.url);
+    const urlParts = url.pathname.split("/");
+    const id = urlParts[2];
+    const list = await shopListServ.findListById(id);
+
+    const data = {
+        list: list[0],
+        items: await shopItemServ.findItemsByListId(id)
+    }
+
+    return new Response(await renderFile("../views/list_details.eta", data), responseDetails);
+}
+
+export { addList, viewActiveLists, viewList };

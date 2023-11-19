@@ -1,0 +1,20 @@
+<% layout("./layouts/layout.eta") %>
+
+<h1><%=it.list.name %></h1>
+
+<h2>Add an item to the list</h2>
+
+<form method="POST" action="/lists">
+  Item name: <input type="text" name="name" />
+  <input type="submit" value="Push to list!" />
+</form>
+
+<h2>Items</h2>
+
+<ul>
+<% it.items.forEach((item) => { %>
+    <li>
+        <%= item.name %>
+    </li>
+<% }); %>
+</ul>

@@ -13,6 +13,8 @@
 
 <ul>
 <% it.lists.forEach((list) => { %>
-  <li><%= list.name %></li>
+    <li>
+        <a href="/lists/<%= list.id %>"> <%= list.name %> </a>
+    </li>
 <% }); %>
 </ul>

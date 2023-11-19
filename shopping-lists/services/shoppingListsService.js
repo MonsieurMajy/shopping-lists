@@ -8,4 +8,8 @@ const findAllActiveLists = async () => {
   return await executeQuery(`SELECT * FROM shopping_lists WHERE active = TRUE`);
 };
 
-export { create, findAllActiveLists };
+const findListById = async (id) => {
+    return await executeQuery(`SELECT * FROM shopping_lists WHERE id = ${ id }`);
+}
+
+export { create, findAllActiveLists, findListById };

@@ -16,7 +16,9 @@ const handleRequest = async (request) => {
   } else if (url.pathname === "/lists" && request.method === "POST") {
     return await shopListControl.addList(request);
   } else if (url.pathname === "/lists" && request.method === "GET") {
-    return await shopListControl.viewLists(request);
+    return await shopListControl.viewActiveLists(request);
+  } else if (url.pathname.match("/lists/[0-9]+")) {
+    return await shopListControl.viewList(request);
   } else {
     return new Response("Not found", { status: 404 });
   }

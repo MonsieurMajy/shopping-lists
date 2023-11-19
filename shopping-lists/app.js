@@ -18,6 +18,8 @@ const handleRequest = async (request) => {
     return await shopListControl.addList(request);
   } else if (url.pathname === "/lists" && request.method === "GET") {
     return await shopListControl.viewActiveLists(request);
+  } else if (url.pathname.match("/lists/[0-9]+/items/[0-9]+") && request.method === "POST") {
+    return await shopItemControl.collectItem(request);
   } else if (url.pathname.match("/lists/[0-9]+/items") && request.method === "POST") {
     return await shopItemControl.addItemToList(request);
   } else if (url.pathname.match("/lists/[0-9]+") && request.method === "GET") {

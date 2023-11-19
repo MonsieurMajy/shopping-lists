@@ -5,11 +5,15 @@ import { executeQuery } from "../database/database.js";
 };*/
 
 const findItemsByListId = async (id) => {
-  return await executeQuery(`SELECT * FROM shopping_list_items WHERE shopping_list_id = ${ id }`);
+  return await executeQuery(`SELECT * FROM shopping_list_items WHERE shopping_list_id = ${ id } ORDER BY collected, name`);
 };
 
 const addItemToList = async (list_id, item_name) => {
-    return await executeQuery(`INSERT INTO shopping_list_items (name, shopping_list_id) VALUES ('${ item_name }', ${ list_id })`);
+    await executeQuery(`INSERT INTO shopping_list_items (name, shopping_list_id) VALUES ('${ item_name }', ${ list_id })`);
 };
 
-export { findItemsByListId , addItemToList };
+const collectItemAtList = async (item_id) => {
+    await executeQuery(`UPDATE shopping_list_items SET collected = true WHERE id = ${item_id}`);
+}
+
+export { findItemsByListId , addItemToList, collectItemAtList };

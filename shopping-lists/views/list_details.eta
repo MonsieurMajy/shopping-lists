@@ -6,7 +6,7 @@
 
 <form method="POST" action="/lists/<%= it.list.id %>/items">
   Item name: <input type="text" name="name" />
-  <input type="submit" value="Push to list!" />
+  <input data-test="push_item" type="submit" value="Push to list!" />
 </form>
 
 <h2>Items</h2>
@@ -20,7 +20,7 @@
         <% } else { %>
             <%= item.name %>
             <form method="POST" action="/lists/<%= it.list.id %>/items/<%= item.id %>/collect">
-                <input type="submit" value="Mark collected!" />
+                <input data-test="<%= item.name %>" type="submit" value="Mark collected!" />
             </form>
         <% } %>
         </div>

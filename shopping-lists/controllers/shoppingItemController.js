@@ -1,8 +1,6 @@
 import * as shopItemServ from "../services/shoppingItemService.js"
 import { redirectTo } from "../utils/requestUtils.js";
 
-let cnt = 0;
-
 const addItemToList = async (request) => {
     //Get the id of the list
     const url = new URL(request.url);

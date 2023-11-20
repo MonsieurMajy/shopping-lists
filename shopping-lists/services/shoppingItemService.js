@@ -14,6 +14,10 @@ const addItemToList = async (list_id, item_name) => {
 
 const collectItemAtList = async (item_id) => {
     await executeQuery(`UPDATE shopping_list_items SET collected = true WHERE id = ${item_id}`);
-}
+};
 
-export { findItemsByListId , addItemToList, collectItemAtList };
+const countItem = async () => {
+  return await executeQuery(`SELECT COUNT(*) FROM shopping_list_items`);
+};
+
+export { findItemsByListId , addItemToList, collectItemAtList, countItem };

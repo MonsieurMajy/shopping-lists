@@ -3,7 +3,7 @@ import { serve } from "./deps.js";
 import { configure } from "./deps.js";
 import * as shopListControl from "./controllers/shoppingListsController.js";
 import * as shopItemControl from "./controllers/shoppingItemController.js"
-import { redirectTo } from "./utils/requestUtils.js";
+import * as mainPageControl from "./controllers/mainPageController.js"
 
 configure({
   views: `${Deno.cwd()}/views/`,
@@ -13,7 +13,7 @@ const handleRequest = async (request) => {
   const url = new URL(request.url);
 
   if (url.pathname === "/" && request.method === "GET") {
-    return redirectTo("/lists");
+    return await mainPageControl.handleMainRequest();
   } else if (url.pathname === "/lists" && request.method === "POST") {
     return await shopListControl.addList(request);
   } else if (url.pathname === "/lists" && request.method === "GET") {

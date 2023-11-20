@@ -16,4 +16,9 @@ const deactivateListById = async (id) => {
   await executeQuery(`UPDATE shopping_lists SET active = FALSE WHERE id = ${id}`);
 };
 
-export { create, findAllActiveLists, findListById, deactivateListById };
+const countList = async () => {
+  return await executeQuery(`SELECT COUNT(*) FROM shopping_lists`);
+};
+
+
+export { create, findAllActiveLists, findListById, deactivateListById, countList };

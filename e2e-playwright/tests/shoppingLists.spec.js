@@ -30,3 +30,29 @@ test("Adding a list on the /lists page", async ({ page }) => {
   const entryExists = await page.waitForSelector(`li >> text='${listName}'`);
   expect(entryExists).toBeTruthy();
 });
+
+test("Check the existence of the deactivate button on list entries at /lists", async ({ page }) => {
+  await page.goto("/");
+  const nb = Math.floor(Math.random()*10000);
+  const listName = `list_${nb}`;
+  await page.locator("input[type=text]").type(listName);
+  await page.locator('input[type=submit][data-test="create"]').click();
+
+  //Check the existence of deactivate button
+  const buttonExists = await page.locator(`input[type=submit][data-test=deactivate_${listName}]`);
+  expect(buttonExists).toBeTruthy();
+});
+
+test("Deactivate a list make it disapear from /lists page @fail", async ({ page }) => {
+  await page.goto("/");
+  const nb = Math.floor(Math.random()*10000);
+  const listName = `list_${nb}`;
+  await page.locator("input[type=text]").type(listName);
+  await page.locator('input[type=submit][data-test="create"]').click();
+
+  const button = await page.locator(`input[type=submit][data-test=deactivate_${listName}]`);
+  await button.click();
+
+  //Check the absence of the list into the main page, should fail
+  expect(page.locator(`li >> text='${listName}'`)).toBeTruthy();
+});

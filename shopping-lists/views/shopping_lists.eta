@@ -16,7 +16,7 @@
     <li>
         <a href="/lists/<%= list.id %>"> <%= list.name %> </a>
         <form method="POST" action="/lists/<%= list.id %>/deactivate">
-          <input data-test="<%= list.id %>" type="submit" value="Deactivate list!" />
+          <input data-test="deactivate_<%= list.name %>" type="submit" value="Deactivate list!" />
         </form>
     </li>
 <% }); %>

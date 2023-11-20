@@ -1,7 +1,7 @@
 import { Pool } from "https://deno.land/x/postgres@v0.17.0/mod.ts";
 
 const CONCURRENT_CONNECTIONS = 2;
-const connectionPool = new Pool({},
+const connectionPool = new Pool(Deno.env.get("DATABASE_URL"),
                                  CONCURRENT_CONNECTIONS,
                                   true
                                 );

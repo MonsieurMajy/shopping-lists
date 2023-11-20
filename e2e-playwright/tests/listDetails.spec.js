@@ -68,6 +68,6 @@ test("Marked an item as collected", async ({ page }) => {
     expect(buttonExists).toBeTruthy();
 
     await buttonExists.click();
-    await expect(page.locator(`div.${itemName} >> del`)).toHaveText(`${itemName}`);
+    await expect(page.locator(`del`)).toHaveText(`${itemName}`);
 
 });

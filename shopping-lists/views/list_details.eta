@@ -14,16 +14,14 @@
 <ul>
 <% it.items.forEach((item) => { %>
     <li>
-        <div class="<%= item.name %>">
-        <% if (item.collected) { %>
-            <del><%= item.name %></del>
-        <% } else { %>
-            <%= item.name %>
-            <form method="POST" action="/lists/<%= it.list.id %>/items/<%= item.id %>/collect">
-                <input data-test="<%= item.name %>" type="submit" value="Mark collected!" />
-            </form>
-        <% } %>
-        </div>
+    <% if (item.collected) { %>
+        <del><%= item.name %></del>
+    <% } else { %>
+        <%= item.name %>
+        <form method="POST" action="/lists/<%= it.list.id %>/items/<%= item.id %>/collect">
+            <input data-test="<%= item.name %>" type="submit" value="Mark collected!" />
+        </form>
+    <% } %>
     </li>
 <% }); %>
 </ul>

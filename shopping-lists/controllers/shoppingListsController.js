@@ -36,6 +36,14 @@ const viewList = async (request) => {
     }
 
     return new Response(await renderFile("../views/list_details.eta", data), responseDetails);
-}
+};
 
-export { addList, viewActiveLists, viewList };
+const deactivateList = async (request) => {
+  const url = new URL(request.url);
+  const urlParts = url.pathname.split("/");
+  await shopListServ.deactivateListById(urlParts[2]);
+
+  return redirectTo("/lists");
+};
+
+export { addList, viewActiveLists, viewList, deactivateList };

@@ -9,7 +9,11 @@ const findAllActiveLists = async () => {
 };
 
 const findListById = async (id) => {
-    return await executeQuery(`SELECT * FROM shopping_lists WHERE id = ${ id }`);
-}
+  return await executeQuery(`SELECT * FROM shopping_lists WHERE id = ${ id }`);
+};
 
-export { create, findAllActiveLists, findListById };
+const deactivateListById = async (id) => {
+  await executeQuery(`UPDATE shopping_lists SET active = FALSE WHERE id = ${id}`);
+};
+
+export { create, findAllActiveLists, findListById, deactivateListById };
